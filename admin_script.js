@@ -1,5 +1,5 @@
 const reservationsTable = document.getElementById('reservationsTable');
-const reservations = JSON.parse(localStorage.getItem('reservations')) || [];
+const reservations = JSON.parse(db.getItem('reservations')) || [];
 
 function loadReservations() {
     const rows = reservations.map(reservation => `

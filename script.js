@@ -6,7 +6,7 @@ const servicesSection = document.getElementById('servicesSection');
 const reservationsSection = document.getElementById('reservationsSection');
 const reservationForm = document.getElementById('reservationForm');
 
-const reservations = JSON.parse(localStorage.getItem('reservations')) || [];
+const reservations = JSON.parse(db.getItem('reservations')) || [];
 
 homeBtn.addEventListener('click', () => {
     showSection(homeSection);
@@ -29,7 +29,7 @@ reservationForm.addEventListener('submit', (event) => {
         date: reservationForm.date.value,
     };
     reservations.push(reservation);
-    localStorage.setItem('reservations', JSON.stringify(reservations));
+    db.setItem('reservations', JSON.stringify(reservations));
     alert('Reservation submitted! We will contact you shortly.');
     reservationForm.reset();
 });
