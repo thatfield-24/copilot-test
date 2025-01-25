@@ -16,7 +16,7 @@
         <button id="homeBtn">Home</button>
         <button id="servicesBtn">Services</button>
         <button id="reservationsBtn">Reservations</button>
-        <button id="adminBtn">Admin</button>
+        <a href="admin.html"><button id="adminBtn">Admin</button></a>
     </nav>
     <section id="content">
         <div id="homeSection" class="section">
@@ -44,17 +44,6 @@
                 <input type="date" id="date" name="date" required><br>
                 <button type="submit">Reserve</button>
             </form>
-        </div>
-        <div id="adminSection" class="section">
-            <h2>Admin - View Reservations</h2>
-            <table id="reservationsTable">
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Service</th>
-                    <th>Date</th>
-                </tr>
-            </table>
         </div>
     </section>
     <script src="script.js"></script>
