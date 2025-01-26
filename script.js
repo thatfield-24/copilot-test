@@ -20,7 +20,7 @@ reservationsBtn.addEventListener('click', () => {
     showSection(reservationsSection);
 });
 
-reservationForm.addEventListener('submit', (event) => {
+reservationForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const reservation = {
         name: reservationForm.name.value,
@@ -28,10 +28,16 @@ reservationForm.addEventListener('submit', (event) => {
         service: reservationForm.service.value,
         date: reservationForm.date.value,
     };
-    reservations.push(reservation);
-    db.setItem('reservations', JSON.stringify(reservations));
-    alert('Reservation submitted! We will contact you shortly.');
-    reservationForm.reset();
+    
+    try {
+        await db.collection('reservations').add(reservation);
+        console.log('Reservation added to Firestore:', reservation);
+        alert('Reservation submitted! We will contact you shortly.');
+    } catch (error) {
+        console.error('Error adding reservation to Firestore:', error);
+    }
+
+    reservationForm.reset
 });
 
 function showSection(section) {
