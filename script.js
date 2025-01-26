@@ -20,7 +20,7 @@ reservationsBtn.addEventListener('click', () => {
     showSection(reservationsSection);
 });
 
-reservationForm.addEventListener('submit', async (event) => {
+reservationForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const reservation = {
         name: reservationForm.name.value,
