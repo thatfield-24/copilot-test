@@ -15,9 +15,10 @@ reservationForm.addEventListener('submit', async (event) => {
         await db.collection('reservations').add(reservation);
         console.log('Reservation added to Firestore:', reservation);
         alert('Reservation submitted! We will contact you shortly.');
-		reservationForm.reset();
     } catch (error) {
-        alert('Error adding reservation to Firestore:');
+        console.error('Error adding reservation to Firestore:', error);
+        alert('Error adding reservation. Please try again.');
     }
 
+    reservationForm.reset();
 });
