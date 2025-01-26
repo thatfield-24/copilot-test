@@ -11,7 +11,7 @@ reservationForm.addEventListener('submit', (event) => {
     };
 
     // Add reservation to Firebase Realtime Database
-    db.ref('reservations').push(reservation, (error) => {
+    realtimedb.ref('reservations').push(reservation, (error) => {
         if (error) {
             console.error('Error adding reservation:', error);
             alert('Error adding reservation. Please try again.');
