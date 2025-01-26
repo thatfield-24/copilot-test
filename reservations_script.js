@@ -1,5 +1,4 @@
 // Your Firebase configuration is already included in firebaseConfig.js
-
 const reservationForm = document.getElementById('reservationForm');
 
 reservationForm.addEventListener('submit', async (event) => {
