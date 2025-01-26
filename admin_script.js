@@ -1,20 +1,22 @@
 // Reference to the table
 const reservationsTable = document.getElementById('reservationsTable');
 
-// Function to load reservations from Firestore
-async function loadReservations() {
-    try {
-        const snapshot = await db.collection('reservations').get();
-        const reservations = snapshot.docs.map(doc => doc.data());
-
-        const rows = reservations.map(reservation => `
-            <tr>
-                <td>${reservation.name}</td>
-                <td>${reservation.email}</td>
-                <td>${reservation.service}</td>
-                <td>${reservation.date}</td>
-            </tr>
-        `).join('');
+// Function to load reservations from Realtime Database
+function loadReservations() {
+    db.ref('reservations').on('value', (snapshot) => {
+        const reservations = snapshot.val();
+        let rows = '';
+        for (const id in reservations) {
+            const reservation = reservations[id];
+            rows += `
+                <tr>
+                    <td>${reservation.name}</td>
+                    <td>${reservation.email}</td>
+                    <td>${reservation.service}</td>
+                    <td>${reservation.date}</td>
+                </tr>
+            `;
+        }
         reservationsTable.innerHTML = `
             <tr>
                 <th>Name</th>
@@ -24,9 +26,9 @@ async function loadReservations() {
             </tr>
             ${rows}
         `;
-    } catch (error) {
-        console.error('Error fetching reservations from Firestore:', error);
-    }
+    }, (error) => {
+        console.error('Error loading reservations:', error);
+    });
 }
 
 // Load reservations on page load

@@ -1,7 +1,7 @@
-// Your Firebase configuration is already included in firebaseConfig.js
+// Reference to the reservation form
 const reservationForm = document.getElementById('reservationForm');
 
-reservationForm.addEventListener('submit', async (event) => {
+reservationForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const reservation = {
         name: reservationForm.name.value,
@@ -9,15 +9,16 @@ reservationForm.addEventListener('submit', async (event) => {
         service: reservationForm.service.value,
         date: reservationForm.date.value,
     };
-    
-    try {
-        await db.collection('reservations').add(reservation);
-        console.log('Reservation added to Firestore:', reservation);
-        alert('Reservation submitted! We will contact you shortly.');
-    } catch (error) {
-        console.error('Error adding reservation to Firestore:', error);
-        alert('Error adding reservation. Please try again.');
-    }
 
-    reservationForm.reset();
+    // Add reservation to Firebase Realtime Database
+    db.ref('reservations').push(reservation, (error) => {
+        if (error) {
+            console.error('Error adding reservation:', error);
+            alert('Error adding reservation. Please try again.');
+        } else {
+            console.log('Reservation added:', reservation);
+            alert('Reservation submitted! We will contact you shortly.');
+            reservationForm.reset();
+        }
+    });
 });
